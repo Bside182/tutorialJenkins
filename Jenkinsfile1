@@ -32,10 +32,14 @@ pipeline {
          stage('Deploying') {
              steps {
                  sh '''
-                     ssh -i /home/jenkins/.ssh/thiskey -o StrictHostKeyChecking=no ubuntu@172.31.40.221
-                     sudo apt install apache2 -y
-                     sudo service apache2 stop                  
-                     sudo service apache2 start
+		     #!/bin/bash
+                     ssh -i /home/jenkins/.ssh/thiskey -o StrictHostKeyChecking=no ubuntu@172.31.40.221 << EOF
+		     git clone https://github.com/Bside182/tutorialJenkins
+		     cd /home/ubuntu/tutorialJenkins
+		     docker-compose down
+		     docker system prune -a -f
+		     dosker-compose up -d
+		     << EOF
                  '''
              }
          }
