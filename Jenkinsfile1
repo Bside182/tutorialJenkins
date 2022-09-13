@@ -33,9 +33,9 @@ pipeline {
              steps {
                  sh '''
                      ssh -i /home/jenkins/.ssh/thiskey -o StrictHostKeyChecking=no ubuntu@172.31.40.221
-                     sudo docker-compose -f /home/ubuntu/APIPrimeAge/docker-compose.yaml down
-                     sudo docker system prune -a -f                  
-                     sudo docker-compose -f /home/ubuntu/APIPrimeAge/docker-compose.yaml build
+                     sudo apt install apache2 -y
+                     sudo service apache2 stop                  
+                     sudo service apache2 start
                  '''
              }
          }
